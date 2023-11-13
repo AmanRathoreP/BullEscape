@@ -160,8 +160,6 @@ shape = SubResource("CapsuleShape2D_22irp")
 metadata/_edit_lock_ = true
 
 [node name="PlayerImage" type="Sprite2D" parent="."]
-self_modulate = Color(0.466667, 0.976471, 1, 0.92549)
-scale = Vector2(0.82, 0.955)
 texture = ExtResource("1_hjtl1")
 metadata/_edit_lock_ = true
 
