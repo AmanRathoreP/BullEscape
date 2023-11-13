@@ -6,7 +6,7 @@ var joystick = load("res://game/objects/dynamic/joystick/virtual_joystick.tscn")
 var players_colors = [Color("#f76dc5"), Color("#f25265"), Color("#6663ff"), Color("#47ffe0"), Color("#dbfa50"), Color("#fcaa44")]
 var joystick_position = [Vector2(1920-250,1080-250), Vector2(50,1080-250), Vector2(50,50), Vector2(1920-250,50), Vector2((1920/2)-125,50), Vector2((1920/2)-125,1080-250)]
 var player_position = joystick_position
-var number_of_players:int = 6
+var number_of_players:int 
 var joystick_instances = []
 var player_instances = []
 var current_target :int

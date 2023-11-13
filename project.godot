@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BullEscape"
-run/main_scene="res://game/objects/levels/level_1.tscn"
+run/main_scene="res://game/objects/levels/home.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.678431, 0.352941, 0.780392, 0.964706)
 config/icon="res://icon.png"
@@ -32,7 +32,6 @@ import/fbx/enabled=false
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
-pointing/emulate_mouse_from_touch=false
 
 [layer_names]
 
