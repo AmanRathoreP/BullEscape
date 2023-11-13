@@ -1,0 +1,188 @@
+[gd_scene load_steps=12 format=3 uid="uid://0hhlto5gef3v"]
+
+[ext_resource type="Script" path="res://game/player/player.gd" id="1_3l8fw"]
+[ext_resource type="Texture2D" uid="uid://dq35n1x1coqus" path="res://assets/raw/graphics/dynamic/players/cartoon/Body only/SVG/White Background.svg" id="1_hjtl1"]
+[ext_resource type="Texture2D" uid="uid://ckr8lhloelflr" path="res://assets/finalized/graphics/static/objects/decorations/red-flag.png" id="3_7mlpb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22irp"]
+radius = 35.0
+height = 78.0
+
+[sub_resource type="Animation" id="Animation_muov0"]
+resource_name = "idle"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerImage:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerImage:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.045, 1.135), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrml6"]
+_data = {
+"idle": SubResource("Animation_muov0")
+}
+
+[sub_resource type="Animation" id="Animation_fn2te"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Red-flag:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Red-flag:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.085, 0.085)]
+}
+
+[sub_resource type="Animation" id="Animation_2ti2p"]
+resource_name = "target-superposition"
+length = 1.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Red-flag:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Red-flag:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true, true, false, true, true, false, true, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Red-flag:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.085, 0.085), Vector2(0.045, 0.045)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cht7s"]
+_data = {
+"RESET": SubResource("Animation_fn2te"),
+"target-superposition": SubResource("Animation_2ti2p")
+}
+
+[sub_resource type="Animation" id="Animation_76ab5"]
+resource_name = "collide"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerImage:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerImage:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.82, 0.955), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8duv"]
+_data = {
+"collide": SubResource("Animation_76ab5")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 7
+script = ExtResource("1_3l8fw")
+player_speed = 2020.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_22irp")
+metadata/_edit_lock_ = true
+
+[node name="PlayerImage" type="Sprite2D" parent="."]
+self_modulate = Color(0.466667, 0.976471, 1, 0.92549)
+scale = Vector2(0.82, 0.955)
+texture = ExtResource("1_hjtl1")
+metadata/_edit_lock_ = true
+
+[node name="idle" type="AnimationPlayer" parent="."]
+speed_scale = 7.09
+libraries = {
+"": SubResource("AnimationLibrary_rrml6")
+}
+
+[node name="Red-flag" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-30, -27)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("3_7mlpb")
+
+[node name="superposition-state" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cht7s")
+}
+
+[node name="collide" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i8duv")
+}

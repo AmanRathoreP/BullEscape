@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbg4rw6rqynmc"]
+
+[ext_resource type="Script" path="res://game/objects/levels/level_1.gd" id="1_2rkux"]
+[ext_resource type="PackedScene" uid="uid://cylsrcv4but6v" path="res://game/objects/base/ground.tscn" id="1_kt02y"]
+[ext_resource type="PackedScene" uid="uid://d4cyy4bxrt23s" path="res://game/objects/anit-players/anti_player_bull.tscn" id="2_7mf1b"]
+
+[node name="level1" type="Node2D"]
+script = ExtResource("1_2rkux")
+
+[node name="Ground" parent="." instance=ExtResource("1_kt02y")]
+
+[node name="anti-player-bull" parent="." instance=ExtResource("2_7mf1b")]
+position = Vector2(904, 537)
+scale = Vector2(0.705, 0.705)
+
+[node name="target-change" type="Timer" parent="."]
+
+[node name="target-superposition-state" type="Timer" parent="."]
+wait_time = 11.0
+
+[connection signal="timeout" from="target-change" to="." method="_on_targetchange_timeout"]
+[connection signal="timeout" from="target-superposition-state" to="." method="_on_targetsuperpositionstate_timeout"]

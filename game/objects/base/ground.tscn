@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cylsrcv4but6v"]
+
+[ext_resource type="Texture2D" uid="uid://bkfi2f8t62gb2" path="res://assets/raw/graphics/static/objects/base/nature-game-background-vector-21861383.jpg" id="1_6rdpv"]
+
+[sub_resource type="GDScript" id="GDScript_dsg2j"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+"
+
+[node name="Ground" type="StaticBody2D"]
+z_index = -489
+collision_layer = 2
+collision_mask = 7
+script = SubResource("GDScript_dsg2j")
+
+[node name="base" type="Sprite2D" parent="."]
+texture_repeat = 2
+position = Vector2(960, 540)
+scale = Vector2(1.096, 1.695)
+texture = ExtResource("1_6rdpv")
+region_enabled = true
+region_rect = Rect2(0, 213, 1751.82, 637)
+
+[node name="boundries" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -4, 1920, 1, 1922, 1082, 0, 1078, 0, 0, 0, -4, -9, 0, -16, 1099, 1950, 1100, 1952, -23, -3, -26)
