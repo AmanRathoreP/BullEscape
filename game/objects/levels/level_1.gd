@@ -3,8 +3,34 @@ extends Node2D
 var player = load("res://game/player/player.tscn")
 var joystick = load("res://game/objects/dynamic/joystick/virtual_joystick.tscn")
 
-var players_colors = [Color("#f76dc5"), Color("#f25265"), Color("#6663ff"), Color("#47ffe0"), Color("#dbfa50"), Color("#fcaa44")]
-var joystick_position = [Vector2(1920-250,1080-250), Vector2(50,1080-250), Vector2(50,50), Vector2(1920-250,50), Vector2((1920/2)-125,50), Vector2((1920/2)-125,1080-250)]
+var players_colors = [
+Color("#f76dc5"),
+Color("#f25265"),
+Color("#6663ff"),
+Color("#47ffe0"),
+Color("#dbfa50"),
+Color("#fcaa44"),
+Color("#4f75f0"),
+Color("#ff2bdc"),
+Color("#6bff66"),
+Color("#ff9869"),
+Color("#c465f7"),
+Color("#fffd85")]
+
+var joystick_position = [
+Vector2(1920-250,1080-250),
+Vector2(50,1080-250),
+Vector2(50,50),
+Vector2(1920-250,50),
+Vector2((1920/2)-125,50),
+Vector2((1920/2)-125,1080-250),
+Vector2(50,(1080/2)-125),
+Vector2(1920-250,(1080/2)-125),
+Vector2((1920/5)+(125/2),50),
+Vector2(((1920/5)*3)+(125/1.5),50),
+Vector2((1920/5)+(125/2),1080-250),
+Vector2(((1920/5)*3)+(125/1.5),1080-250)]
+
 var player_position = joystick_position
 var number_of_players:int 
 var joystick_instances = []

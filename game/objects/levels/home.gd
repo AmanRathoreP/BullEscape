@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	for i in range(2, 7):
+	for i in range(2, 13):
 		$"number-of-players".add_item(str(i))
 
 func _on_start_pressed():

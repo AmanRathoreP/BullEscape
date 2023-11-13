@@ -11,7 +11,7 @@ script = ExtResource("1_2rkux")
 
 [node name="anti-player-bull" parent="." instance=ExtResource("2_7mf1b")]
 position = Vector2(904, 537)
-scale = Vector2(0.705, 0.705)
+scale = Vector2(0.3, 0.3)
 
 [node name="target-change" type="Timer" parent="."]
 
