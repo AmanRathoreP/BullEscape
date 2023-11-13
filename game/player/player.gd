@@ -17,10 +17,7 @@ func _physics_process(_delta):
 		$idle.play("idle")
 
 	$"Red-flag".visible = player_is_target
-	
-#func get_global_position():
-#	return global_position
-	
+
 func start_target_superposition():
 	$"superposition-state".play("target-superposition")
 	

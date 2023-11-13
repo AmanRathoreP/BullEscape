@@ -14,6 +14,7 @@ config/name="BullEscape"
 run/main_scene="res://game/objects/levels/home.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/bg_color=Color(0.678431, 0.352941, 0.780392, 0.964706)
+boot_splash/image="res://loading-screen.png"
 config/icon="res://icon.png"
 
 [display]
