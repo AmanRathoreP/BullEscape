@@ -1,12 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdgjlvumsmjab"]
+[gd_scene load_steps=4 format=3 uid="uid://cdgjlvumsmjab"]
 
 [ext_resource type="Script" path="res://game/objects/levels/home.gd" id="1_1t872"]
+[ext_resource type="Script" path="res://game/objects/levels/Client.gd" id="2_55ani"]
+[ext_resource type="Script" path="res://game/objects/levels/Server.gd" id="3_eqovh"]
 
 [node name="Home" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1t872")
@@ -18,27 +22,150 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -109.5
-offset_top = -48.0
-offset_right = 109.5
-offset_bottom = 48.0
+offset_left = -39.5
+offset_top = -25.0
+offset_right = 39.5
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 30
 text = "Start"
+
+[node name="GetAllPeers" type="Button" parent="."]
+layout_mode = 1
+offset_right = 97.0
+offset_bottom = 30.0
+theme_override_font_sizes/font_size = 15
+text = "Update Peers"
 
 [node name="number-of-players" type="OptionButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
+anchor_right = 1.499
 anchor_bottom = 0.5
-offset_left = 718.0
-offset_top = 266.0
-offset_right = -738.0
-offset_bottom = -149.0
+offset_left = 430.0
+offset_top = 126.0
+offset_right = -379.36
+offset_bottom = -106.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 36
 alignment = 1
 
+[node name="Client" type="Node" parent="."]
+script = ExtResource("2_55ani")
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource("3_eqovh")
+
+[node name="webRTC" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -68.0
+offset_top = 467.0
+offset_right = 411.0
+offset_bottom = -7.99994
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ServerButton" type="Button" parent="webRTC"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 41
+text = "Start Server"
+
+[node name="ClientButton" type="Button" parent="webRTC"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 41
+text = "Start Client"
+
+[node name="SendDataToServer" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 329.0
+offset_top = 112.0
+offset_right = -11.0
+offset_bottom = -106.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Client ⟹ Server"
+
+[node name="JoinLobbyButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 36.0
+offset_top = 21.0
+offset_right = -731.0
+offset_bottom = -197.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Join Lobby"
+
+[node name="LobbyIdText" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 119.0
+offset_right = -196.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+
+[node name="SendDataToClient" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 333.0
+offset_top = 54.0
+offset_right = -15.0
+offset_bottom = -164.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 31
+text = "Server ⟹ Client"
+
+[node name="PeerID" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.216
+offset_left = 316.0
+offset_top = 12.0
+offset_right = -201.0
+offset_bottom = -72.64
+grow_horizontal = 2
+text = "Peer id:"
+
+[node name="PeersInfo" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.216
+offset_left = 316.0
+offset_top = 44.0
+offset_right = -201.0
+offset_bottom = -40.64
+grow_horizontal = 2
+text = "Peer(s): "
+
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="GetAllPeers" to="Client" method="_on_update_ping_pressed"]
+[connection signal="pressed" from="webRTC/ServerButton" to="Server" method="_on_server_button_pressed"]
+[connection signal="pressed" from="webRTC/ClientButton" to="Client" method="_on_client_button_pressed"]
+[connection signal="pressed" from="SendDataToServer" to="Client" method="_on_send_data_to_server_pressed"]
+[connection signal="pressed" from="JoinLobbyButton" to="Client" method="_on_join_lobby_button_pressed"]
+[connection signal="pressed" from="SendDataToClient" to="Server" method="_on_send_data_to_client_pressed"]
