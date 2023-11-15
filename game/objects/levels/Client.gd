@@ -155,12 +155,11 @@ func sendAnswer(id, data):
 func connected(my_id):
 	rtcPeer.create_mesh(my_id)
 	multiplayer.multiplayer_peer = rtcPeer
-
-#@rpc("any_peer")
-func update_ping():
-	$"../PeersInfo".text = "Peer(s): " + str(multiplayer.get_peers())
-	print_debug(multiplayer.get_remote_sender_id())
-
-
-func _on_update_ping_pressed():
-	update_ping()
+	
+@rpc("any_peer")
+func update_peers_screen(data:String):
+	$"../GameInfoSendAndReciveTest/RecivedData".text = "data from: " + str(multiplayer.get_remote_sender_id()) + "\n" + data
+	
+func _on_update_peers_screen_pressed():
+	update_peers_screen.rpc($"../GameInfoSendAndReciveTest/DataToSend".text)
+	

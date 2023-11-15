@@ -695,6 +695,7 @@ mono_crash.*.json
 # User specified files starts here
 
 !**/README.md
+webrtc/
 
 # User specified files ends here
 

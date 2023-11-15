@@ -31,13 +31,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Start"
 
-[node name="GetAllPeers" type="Button" parent="."]
-layout_mode = 1
-offset_right = 97.0
-offset_bottom = 30.0
-theme_override_font_sizes/font_size = 15
-text = "Update Peers"
-
 [node name="number-of-players" type="OptionButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -150,22 +143,34 @@ offset_bottom = -72.64
 grow_horizontal = 2
 text = "Peer id:"
 
-[node name="PeersInfo" type="RichTextLabel" parent="."]
+[node name="GameInfoSendAndReciveTest" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.216
-offset_left = 316.0
-offset_top = 44.0
-offset_right = -201.0
-offset_bottom = -40.64
-grow_horizontal = 2
-text = "Peer(s): "
+anchor_top = 0.124
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -5.96001
+offset_right = -61.0
+offset_bottom = -26.0
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="DataToSend" type="LineEdit" parent="GameInfoSendAndReciveTest"]
+layout_mode = 2
+text = "Write msg here"
+
+[node name="UpdatePeer(s)Screen" type="Button" parent="GameInfoSendAndReciveTest"]
+layout_mode = 2
+text = "Send To Peer(s)"
+
+[node name="RecivedData" type="Label" parent="GameInfoSendAndReciveTest"]
+layout_mode = 2
 
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="GetAllPeers" to="Client" method="_on_update_ping_pressed"]
 [connection signal="pressed" from="webRTC/ServerButton" to="Server" method="_on_server_button_pressed"]
 [connection signal="pressed" from="webRTC/ClientButton" to="Client" method="_on_client_button_pressed"]
 [connection signal="pressed" from="SendDataToServer" to="Client" method="_on_send_data_to_server_pressed"]
 [connection signal="pressed" from="JoinLobbyButton" to="Client" method="_on_join_lobby_button_pressed"]
 [connection signal="pressed" from="SendDataToClient" to="Server" method="_on_send_data_to_client_pressed"]
+[connection signal="pressed" from="GameInfoSendAndReciveTest/UpdatePeer(s)Screen" to="Client" method="_on_update_peers_screen_pressed"]
