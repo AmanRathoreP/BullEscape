@@ -1,176 +1,187 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdgjlvumsmjab"]
+[gd_scene load_steps=5 format=3 uid="uid://cdgjlvumsmjab"]
 
 [ext_resource type="Script" path="res://game/objects/levels/home.gd" id="1_1t872"]
-[ext_resource type="Script" path="res://game/objects/levels/Client.gd" id="2_55ani"]
-[ext_resource type="Script" path="res://game/objects/levels/Server.gd" id="3_eqovh"]
+[ext_resource type="Texture2D" uid="uid://b4i5llr60hegs" path="res://loading-screen.png" id="2_htacv"]
+[ext_resource type="Script" path="res://game/objects/levels/Client.gd" id="3_ikjvs"]
+[ext_resource type="Script" path="res://game/objects/levels/Server.gd" id="4_2yx0x"]
 
 [node name="Home" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.0
-offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1t872")
+metadata/_edit_lock_ = true
 
-[node name="Start" type="Button" parent="."]
+[node name="BackgroundImage" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_htacv")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Start" type="Button" parent="BackgroundImage"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -286.0
+offset_top = -152.0
+offset_right = -67.0
+offset_bottom = -56.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Start"
+metadata/_edit_lock_ = true
+
+[node name="ExitLobby" type="Button" parent="BackgroundImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -286.0
+offset_top = -248.0
+offset_right = -67.0
+offset_bottom = -172.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 36
+text = "Exit Lobby"
+metadata/_edit_lock_ = true
+
+[node name="NumberOfOfflinePlayersSelector" type="SpinBox" parent="BackgroundImage"]
+layout_mode = 2
+offset_left = 72.0
+offset_top = 335.0
+offset_right = 745.0
+offset_bottom = 394.0
+min_value = 2.0
+max_value = 12.0
+value = 2.0
+alignment = 1
+prefix = "Offline Players"
+metadata/_edit_lock_ = true
+
+[node name="HostOnlineGame" type="Button" parent="BackgroundImage"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 47.0
+offset_right = 501.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 36
+text = "Create Online Lobby"
+metadata/_edit_lock_ = true
+
+[node name="JoinOnlineGame" type="Button" parent="BackgroundImage"]
+layout_mode = 0
+offset_left = 562.0
+offset_top = 47.0
+offset_right = 1011.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 36
+text = "Join Online Lobby"
+metadata/_edit_lock_ = true
+
+[node name="EnterLobbyId" type="LineEdit" parent="BackgroundImage"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 63.0
+offset_top = -331.0
+offset_right = 973.0
+offset_bottom = -254.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "Enter Lobby ID"
+metadata/_edit_lock_ = true
+
+[node name="WaitingForHost" type="Label" parent="BackgroundImage"]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -356.0
+offset_top = 491.5
+offset_right = -29.0
+offset_bottom = 522.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.980392, 0.980392, 0.980392, 1)
+theme_override_font_sizes/font_size = 20
+text = "Waiting for host to start the game"
+metadata/_edit_lock_ = true
+
+[node name="Info" type="Label" parent="BackgroundImage"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -39.5
-offset_top = -25.0
-offset_right = 39.5
-offset_bottom = 25.0
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
-text = "Start"
 
-[node name="number-of-players" type="OptionButton" parent="."]
+[node name="Client" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_ikjvs")
+
+[node name="Server" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_2yx0x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.499
-anchor_bottom = 0.5
-offset_left = 430.0
-offset_top = 126.0
-offset_right = -379.36
-offset_bottom = -106.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 36
-alignment = 1
-
-[node name="Client" type="Node" parent="."]
-script = ExtResource("2_55ani")
-
-[node name="Server" type="Node" parent="."]
-script = ExtResource("3_eqovh")
-
-[node name="webRTC" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -68.0
-offset_top = 467.0
-offset_right = 411.0
-offset_bottom = -7.99994
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ServerButton" type="Button" parent="webRTC"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 41
-text = "Start Server"
-
-[node name="ClientButton" type="Button" parent="webRTC"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 41
-text = "Start Client"
-
-[node name="SendDataToServer" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 329.0
-offset_top = 112.0
-offset_right = -11.0
-offset_bottom = -106.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 31
-text = "Client ⟹ Server"
+offset_left = -113.0
+offset_bottom = 61.0
+grow_horizontal = 0
 
-[node name="JoinLobbyButton" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 36.0
-offset_top = 21.0
-offset_right = -731.0
-offset_bottom = -197.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 31
-text = "Join Lobby"
-
-[node name="LobbyIdText" type="LineEdit" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 119.0
-offset_right = -196.0
-offset_bottom = -110.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 16
-
-[node name="SendDataToClient" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 333.0
-offset_top = 54.0
-offset_right = -15.0
-offset_bottom = -164.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 31
-text = "Server ⟹ Client"
-
-[node name="PeerID" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.216
-offset_left = 316.0
-offset_top = 12.0
-offset_right = -201.0
-offset_bottom = -72.64
-grow_horizontal = 2
-text = "Peer id:"
-
-[node name="GameInfoSendAndReciveTest" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.124
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = -5.96001
-offset_right = -61.0
-offset_bottom = -26.0
-theme_override_constants/separation = 5
-alignment = 1
-
-[node name="DataToSend" type="LineEdit" parent="GameInfoSendAndReciveTest"]
+[node name="CreateServerTemp" type="Button" parent="VBoxContainer"]
+z_index = 5
 layout_mode = 2
-text = "Write msg here"
+text = "Create Server"
 
-[node name="UpdatePeer(s)Screen" type="Button" parent="GameInfoSendAndReciveTest"]
+[node name="PeerId" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "Send To Peer(s)"
+text = "Peer id"
 
-[node name="RecivedData" type="Label" parent="GameInfoSendAndReciveTest"]
-layout_mode = 2
-
-[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
-[connection signal="pressed" from="webRTC/ServerButton" to="Server" method="_on_server_button_pressed"]
-[connection signal="pressed" from="webRTC/ClientButton" to="Client" method="_on_client_button_pressed"]
-[connection signal="pressed" from="SendDataToServer" to="Client" method="_on_send_data_to_server_pressed"]
-[connection signal="pressed" from="JoinLobbyButton" to="Client" method="_on_join_lobby_button_pressed"]
-[connection signal="pressed" from="SendDataToClient" to="Server" method="_on_send_data_to_client_pressed"]
-[connection signal="pressed" from="GameInfoSendAndReciveTest/UpdatePeer(s)Screen" to="Client" method="_on_update_peers_screen_pressed"]
+[connection signal="pressed" from="BackgroundImage/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="BackgroundImage/ExitLobby" to="." method="_on_exit_lobby_pressed"]
+[connection signal="changed" from="BackgroundImage/NumberOfOfflinePlayersSelector" to="." method="_on_number_of_offline_players_selector_changed"]
+[connection signal="value_changed" from="BackgroundImage/NumberOfOfflinePlayersSelector" to="Client" method="_on_number_of_offline_players_selector_value_changed"]
+[connection signal="pressed" from="BackgroundImage/HostOnlineGame" to="Client" method="_on_host_online_game_pressed"]
+[connection signal="pressed" from="BackgroundImage/JoinOnlineGame" to="." method="_on_join_online_game_pressed"]
+[connection signal="pressed" from="BackgroundImage/JoinOnlineGame" to="Client" method="_on_join_online_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreateServerTemp" to="Server" method="_on_create_server_temp_pressed"]

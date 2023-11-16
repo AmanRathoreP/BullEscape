@@ -17,7 +17,7 @@ var peer = WebSocketMultiplayerPeer.new()
 var id = null
 var rtcPeer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
 #var hostId :int
-var lobbyValue = ""
+var lobbyValue = "-1"
 var lobbyInfo = {}
 var GameManager_TEMP = {"Players" = null}
 
@@ -46,13 +46,13 @@ func _process(delta):
 				print_debug(data["data"])
 			if data["message_type"] == MessageTypes.id:
 				id = data["data"]
-				$"../PeerID".text = "Peer id: " + str(id)
+				$"../VBoxContainer/PeerId".text = "Peer id: " + str(id)
 				print_debug("My id is: ", id)
 				connected(id)
 			if data["message_type"] == MessageTypes.userConnected:
 				create_peer(data["id"])
 				lobbyValue = data["lobbyValue"]
-				$"../LobbyIdText".text = lobbyValue
+				$"../BackgroundImage/EnterLobbyId".text = lobbyValue
 			if data["message_type"] == MessageTypes.lobby:
 				GameManager_TEMP["Players"] = JSON.parse_string(data["players"])
 			if data["message_type"] == MessageTypes.candidate:
@@ -66,15 +66,6 @@ func _process(delta):
 				if rtcPeer.has_peer(data["orgPeer"]):
 					rtcPeer.get_peer(data["orgPeer"]).connection.set_remote_description("answer", data["data"])
 
-	
-func connectToServer(ip:String):
-	peer.create_client("ws://127.0.0.1:8918")
-	$"../webRTC/ClientButton".disabled = true
-
-
-func _on_client_button_pressed():
-	connectToServer("")
-
 func _on_send_data_to_server_pressed():
 	var message = {
 "message_type" : MessageTypes.message,
@@ -83,12 +74,12 @@ func _on_send_data_to_server_pressed():
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 
-func _on_join_lobby_button_pressed():
+func create_lobby(lobby_id:String = ""):
 	var message = {
 "message_type" : MessageTypes.lobby,
 "id" : id,
 "name" : "",
-"lobbyValue" : $"../LobbyIdText".text
+"lobbyValue" : lobby_id
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
@@ -155,11 +146,25 @@ func sendAnswer(id, data):
 func connected(my_id):
 	rtcPeer.create_mesh(my_id)
 	multiplayer.multiplayer_peer = rtcPeer
+	create_lobby(lobbyValue)
+	$"../BackgroundImage/Info".visible = false
 	
+func _on_host_online_game_pressed():
+	peer.create_client("ws://127.0.0.1:8918")
+	$"../BackgroundImage/Info".text = "Connection to best avaliable server..."
+	$"../BackgroundImage/Info".visible = true
+	print_debug("here")
+
+
+func _on_join_online_game_pressed():
+	peer.create_client("ws://127.0.0.1:8918")
+	lobbyValue = $"../BackgroundImage/EnterLobbyId".text
+	$"../BackgroundImage/Info".text = "Connection to best avaliable server..."
+	$"../BackgroundImage/Info".visible = true
+
 @rpc("any_peer")
-func update_peers_screen(data:String):
-	$"../GameInfoSendAndReciveTest/RecivedData".text = "data from: " + str(multiplayer.get_remote_sender_id()) + "\n" + data
-	
-func _on_update_peers_screen_pressed():
-	update_peers_screen.rpc($"../GameInfoSendAndReciveTest/DataToSend".text)
-	
+func update_number_of_player(number_of_players:int):
+	$"../BackgroundImage/NumberOfOfflinePlayersSelector".value = number_of_players
+
+func _on_number_of_offline_players_selector_value_changed(value):
+	update_number_of_player.rpc(value)

@@ -21,6 +21,9 @@ var Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if "--server" in OS.get_cmdline_args():
+		print("hosting on " + str(hostPort))
+		peer.create_server(hostPort)
 	peer.connect("peer_connected", peer_connected)
 	peer.connect("peer_disconnected", peer_disconnected)
 
@@ -43,17 +46,14 @@ func _process(delta):
 
 func createServer(port:int):
 	peer.create_server(port)
-	$"../webRTC/ServerButton".disabled = true
+#	$"../webRTC/ServerButton".disabled = true
 
-func _on_server_button_pressed():
-	createServer(8918)
-
-func _on_send_data_to_client_pressed():
-	var message = {
-		"message_type" : MessageTypes.message,
-		"data": "test from Server"
-	}
-	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+#func _on_send_data_to_client_pressed():
+#	var message = {
+#		"message_type" : MessageTypes.message,
+#		"data": "test from Server"
+#	}
+#	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 func peer_connected(id):
 	print_debug("Peer Connected with id: " + str(id))
@@ -68,7 +68,7 @@ func peer_disconnected(id):
 	
 func JoinLobby(user):
 	var result = ""
-	if user["lobbyValue"] == "":
+	if user["lobbyValue"] == "-1":
 		user["lobbyValue"] = generateRandomString()
 		lobbies[user["lobbyValue"]] = lobby.new(user["id"])
 		print(user["lobbyValue"])
@@ -119,3 +119,8 @@ func generateRandomString():
 		var index = randi() % Characters.length()
 		result += Characters[index]
 	return result
+
+
+func _on_create_server_temp_pressed():
+	print("hosting on " + str(hostPort))
+	peer.create_server(hostPort)
